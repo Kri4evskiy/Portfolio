@@ -1,0 +1,17 @@
+.StartScreen {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-grow: 1;
+    background-color: darkmagenta;
+
+    &__title {
+        display: block;
+        color: darkorange;
+
+        h2 {
+            font-size: 50px;
+            letter-spacing: 40px;
+        }
+    }
+}
