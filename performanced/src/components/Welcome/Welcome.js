@@ -29,8 +29,8 @@ export default class Welcome extends Component {
     }
 
     onChangeHandler = (event, controlName) => {
-        const formControls = {...this.state.formControls}
-        const control = {...formControls[controlName]}
+        const formControls = { ...this.state.formControls }
+        const control = { ...formControls[controlName] }
 
         control.value = event.target.value
         control.touched = true
@@ -46,13 +46,13 @@ export default class Welcome extends Component {
         if (formControls.name.value && formControls.nickname.value) {
             disabled = false
         }
-        
+
         this.setState({
             formControls, isFormValid, disabled
         })
     }
 
-    renderInputs () {
+    renderInputs() {
         return Object.keys(this.state.formControls).map((controlName, index) => {
             const control = this.state.formControls[controlName]
             return (
@@ -69,28 +69,40 @@ export default class Welcome extends Component {
         })
     }
 
-    handleFormSubmit = (e) => {
-        e.preventDefault()
-        const {name, nickname} = this.state.formControls
-        const {onSign} = this.props
+    handleFormSubmit = event => {
+        event.preventDefault()
+        const { name, nickname } = this.state.formControls
+        const { onSign } = this.props
 
         if (name.value.trim() && nickname.value.trim()) {
 
             localStorage.setItem('name', name.value)
             localStorage.setItem('nickname', nickname.value)
 
-            onSign()            
+            onSign()
         }
     }
 
-    // componentDidMount() {
-    //     console.log(this.state);
-    //     console.log(this.props);
+    checkLocalStorage() {
+        const { name, nickname } = this.state.formControls
+        const localName = localStorage.getItem('name')
+        const localNickname = localStorage.getItem('nickname')
 
-    // }
-    // componentDidUpdate(state) {
-    //     console.log(this.state);
-    // }
+        name.value = localName
+        nickname.value = localNickname
+
+        const disabled = false
+
+        this.setState({
+            name, nickname, disabled
+        })
+    }
+
+    componentDidMount() {
+        if (localStorage.getItem('name') && localStorage.getItem('nickname')) {
+            this.checkLocalStorage()
+        }
+    }
 
     render() {
         const { Welcome, Welcome__title, Welcome__form } = classes
@@ -117,12 +129,14 @@ export default class Welcome extends Component {
                                 <Zoom duration={4500} delay={3000}>
 
                                     <form onSubmit={this.handleFormSubmit}>
+
                                         {this.renderInputs()}
-                                        {/* <button disabled={this.state.disabled} type='submit'>Что-то</button> */}
-                                        <Button 
-                                        disabled={this.state.disabled}
-                                        type='submit'
+
+                                        <Button
+                                            disabled={this.state.disabled}
+                                            type='submit'
                                         >lets roll</Button>
+
                                     </form>
 
                                 </Zoom>
@@ -134,4 +148,3 @@ export default class Welcome extends Component {
         )
     }
 }
-

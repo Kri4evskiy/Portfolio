@@ -1,11 +1,12 @@
 import React from 'react'
 import Welcome from './components/Welcome'
+import MainPage from './components/MainPage'
 import Layout from './hoc/Layout'
 
 class App extends React.Component {
 
 	state = {
-		isSigned: false
+		isSigned: true
 	}
 
 	signedControlHandler = () => {
@@ -13,20 +14,24 @@ class App extends React.Component {
 		this.setState({ isSigned })
 
 	}
-	componentDidMount() {
-		console.log(this.state);
-		console.log(this.props);
+	// componentDidMount() {
+	// 	console.log(this.state);
+	// 	console.log(this.props);
 
-	}
-	componentDidUpdate(state) {
-		console.log(this.state);
-	}
+	// }
+	// componentDidUpdate(state) {
+	// 	console.log(this.state);
+	// }
 
 
 	render() {
 		return (
 			<Layout>
-				<Welcome onSign={this.signedControlHandler} />
+				{
+					this.state.isSigned
+						? <MainPage />
+						: <Welcome onSign={this.signedControlHandler} />
+				}
 			</Layout>
 		);
 	}
