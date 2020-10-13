@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Welcome from './components/Welcome'
 import MainPage from './components/MainPage'
 import Layout from './hoc/Layout'
 
-class App extends React.Component {
+class App extends Component {
 
 	state = {
 		isSigned: true
@@ -12,17 +12,7 @@ class App extends React.Component {
 	signedControlHandler = () => {
 		const isSigned = true
 		this.setState({ isSigned })
-
 	}
-	// componentDidMount() {
-	// 	console.log(this.state);
-	// 	console.log(this.props);
-
-	// }
-	// componentDidUpdate(state) {
-	// 	console.log(this.state);
-	// }
-
 
 	render() {
 		return (
@@ -35,7 +25,6 @@ class App extends React.Component {
 			</Layout>
 		);
 	}
-
 }
 
 export default App;

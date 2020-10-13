@@ -1,0 +1,39 @@
+.NavBar {
+    ul {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        a {
+            position: relative;
+            margin-right: 15px;
+            padding: 7px;
+            font-size: 18px;
+            border-radius: 2px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        a:after {
+            display: block;
+            position: absolute;
+            left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+            width: 0; /*задаём длинну линии до наведения курсора*/
+            height: 3px; /*задаём ширину линии*/
+            background-color: #ff0000; /*задаём цвет линии*/
+            content: "";
+            transition: width 0.4s ease-out;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #fff;
+            background-color: rgb(37, 37, 37);
+        }
+
+        a.activeLink:after {
+            width: 100%;
+        }
+    }
+}
