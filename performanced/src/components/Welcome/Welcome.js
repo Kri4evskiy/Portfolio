@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Col, Row, Container } from 'react-bootstrap'
 import Zoom from 'react-reveal/Zoom';
+
 import Input from '../UI/Input';
 import Button from '../UI/Button'
+
 import classes from './Welcome.module.scss'
 
 export default class Welcome extends Component {
-
+    
     state = {
         disabled: true,
         isFormValid: false,
@@ -27,7 +29,7 @@ export default class Welcome extends Component {
             }
         }
     }
-
+    
     onChangeHandler = (event, controlName) => {
         const formControls = { ...this.state.formControls }
         const control = { ...formControls[controlName] }

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import classes from './Input.module.scss'
 
 const Input = props => {
@@ -6,10 +7,6 @@ const Input = props => {
     const htmlFor = `${inputType}-${Math.random()}`
 
     const cls = [classes.Input]
-
-    // if(true) {
-    //     cls.push(classes.invalid)
-    // }
     
     return (
         <div className={cls.join(' ')}>

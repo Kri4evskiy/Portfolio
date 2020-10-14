@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import classes from './LogoName.module.scss'
 
 const LogoName = () => {
-    const { LogoName, LogoName__link } = classes
+    const { wrapper_logo } = classes
+    
     return (
-        <div className={LogoName}>
+        <div className={wrapper_logo}>
             <Link
-                className={LogoName__link}
-                to='/about'
+                to='/'
             >
                 Krichevskiy <br /> Stanislav
             </Link>

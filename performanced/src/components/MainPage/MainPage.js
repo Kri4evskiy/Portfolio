@@ -1,24 +1,32 @@
-import React, { Component } from 'react'
-import Header from '../Header'
-import { Route } from 'react-router-dom'
+import React from 'react'
+import { Redirect, Route } from 'react-router-dom'
 
-import classes from './MainPage.module.scss'
+import Header from '../Header'
+import ViewPage from '../ViewPage'
 import AboutPage from '../AboutPage'
 import PhotosPage from '../PhotosPage'
 import MyCV from '../MyCV/MyCV'
 
-export default class MainPage extends Component {
-    render() {
-        const { MainPage } = classes
-        return (
-            <div className={MainPage}>
-                
-                    <Header />
+import classes from './MainPage.module.scss'
 
-                    <Route path='/about' component={AboutPage} />
-                    <Route path='/photos' component={PhotosPage} />
-                    <Route path='/mycv' component={MyCV} />
-            </div>
-        )
-    }
+const MainPage = () => {
+
+    const { MainPage } = classes
+
+    return (
+        <div className={MainPage}>
+
+            <Header />
+
+            <Route exact path='/' component={ViewPage} />
+            <Route path='/about' component={AboutPage} />
+            <Route path='/photos' component={PhotosPage} />
+            <Route path='/mycv' component={MyCV} />
+
+            <Redirect to='/' />
+
+        </div>
+    )
 }
+
+export default MainPage

@@ -1,11 +1,14 @@
-.LogoName {
+.wrapper_logo {
+    margin-left: 15px;
+    text-align: center;
     
-    &__link {
-        color: #fff;
+    a {
+        font-size: 22px;
         font-weight: bold;
+        color: #fff;
     }
 
-    &__link:hover {
+    a:hover {
         text-decoration: none;
         color: #fff;
     }

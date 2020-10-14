@@ -24,6 +24,9 @@
         box-sizing: border-box;
         box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
     }
+    input:focus {
+        border: 2px solid #29B0D9;
+    }
 
     span {
         color: #f01f30;

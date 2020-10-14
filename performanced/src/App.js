@@ -1,30 +1,25 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+
 import Welcome from './components/Welcome'
 import MainPage from './components/MainPage'
 import Layout from './hoc/Layout'
 
-class App extends Component {
+const App = () => {
+	const [isSigned, setIsSigned] = useState(true)
 
-	state = {
-		isSigned: true
+	const signedControlHandler = () => {
+		setIsSigned(prevState => !prevState)
 	}
 
-	signedControlHandler = () => {
-		const isSigned = true
-		this.setState({ isSigned })
-	}
-
-	render() {
-		return (
-			<Layout>
-				{
-					this.state.isSigned
-						? <MainPage />
-						: <Welcome onSign={this.signedControlHandler} />
-				}
-			</Layout>
-		);
-	}
+	return (
+		<Layout>
+			{
+				isSigned
+					? <MainPage />
+					: <Welcome onSign={signedControlHandler} />
+			}
+		</Layout>
+	);
 }
 
 export default App;
