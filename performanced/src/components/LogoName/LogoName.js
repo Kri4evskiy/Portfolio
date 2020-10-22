@@ -8,9 +8,7 @@ const LogoName = () => {
     
     return (
         <div className={wrapper_logo}>
-            <Link
-                to='/'
-            >
+            <Link to='/' >
                 Krichevskiy <br /> Stanislav
             </Link>
         </div>

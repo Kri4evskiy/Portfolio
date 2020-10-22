@@ -2,10 +2,10 @@ import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
 import Header from '../Header'
-import ViewPage from '../ViewPage'
-import AboutPage from '../AboutPage'
-import PhotosPage from '../PhotosPage'
-import MyCV from '../MyCV/MyCV'
+import ViewPage from '../../pages/ViewPage'
+import AboutPage from '../../pages/AboutPage'
+import PhotosPage from '../../pages/PhotosPage'
+import MyCV from '../../pages/MyCV'
 
 import classes from './MainPage.module.scss'
 

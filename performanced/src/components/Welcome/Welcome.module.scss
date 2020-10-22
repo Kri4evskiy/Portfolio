@@ -3,7 +3,8 @@
     text-align: center;
     align-items: center;
     flex-grow: 1;
-    background-color: #000;
+    background: url('../../img/map-0.png') center no-repeat #000;
+    background-size: 90%;
 
     &__title {
         display: block;
