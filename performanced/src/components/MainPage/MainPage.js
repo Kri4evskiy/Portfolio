@@ -8,6 +8,8 @@ import PhotosPage from '../../pages/PhotosPage'
 import MyCV from '../../pages/MyCV'
 
 import classes from './MainPage.module.scss'
+import Switch from 'react-bootstrap/esm/Switch'
+import Alert from '../Alert/Alert'
 
 const MainPage = () => {
 
@@ -17,15 +19,16 @@ const MainPage = () => {
         <div className={MainPage}>
 
             <Header />
+            <Alert alert={{text: 'test alert'}} />
+            <Switch>
+                <Route exact path='/' component={ViewPage} />
+                <Route path='/about' component={AboutPage} />
+                <Route path='/photos' component={PhotosPage} />
+                <Route path='/mycv' component={MyCV} />
 
-            <Route exact path='/' component={ViewPage} />
-            <Route path='/about' component={AboutPage} />
-            <Route path='/photos' component={PhotosPage} />
-            <Route path='/mycv' component={MyCV} />
-
-            <Redirect to='/' />
-
-        </div>
+                <Redirect to='/' />
+            </Switch>
+        </div >
     )
 }
 
