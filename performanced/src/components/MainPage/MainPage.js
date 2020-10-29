@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 import Header from '../Header'
 import ViewPage from '../../pages/ViewPage'
@@ -8,8 +8,6 @@ import PhotosPage from '../../pages/PhotosPage'
 import MyCV from '../../pages/MyCV'
 
 import classes from './MainPage.module.scss'
-import Switch from 'react-bootstrap/esm/Switch'
-import Alert from '../Alert/Alert'
 
 const MainPage = () => {
 
@@ -18,8 +16,8 @@ const MainPage = () => {
     return (
         <div className={MainPage}>
 
-            <Header />
-            <Alert alert={{text: 'test alert'}} />
+            <Header />            
+            
             <Switch>
                 <Route exact path='/' component={ViewPage} />
                 <Route path='/about' component={AboutPage} />
