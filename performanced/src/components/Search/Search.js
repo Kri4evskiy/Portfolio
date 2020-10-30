@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { AlertContext } from '../../context/alert/alertContext'
+import { GithubContext } from '../../context/github/githubContext'
+
 
 import classes from './Search.module.scss'
 
@@ -7,6 +9,7 @@ const Search = () => {
     const {Search} = classes 
 
     const {show} = useContext(AlertContext)
+    const github = useContext(GithubContext)
 
     const [value, setValue] = useState('')
 
@@ -15,7 +18,7 @@ const Search = () => {
             return
         }
         if (value.trim()) {
-            console.log('Make request ', value);
+            github.search(value.trim())
         } else {
             show('Введите данные пользователя!')
         }
