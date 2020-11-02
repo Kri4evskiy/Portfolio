@@ -1,19 +1,29 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {GoMarkGithub} from "react-icons/go";
 
 import classes from './Card.module.scss'
 
-const Card = () => {
-const {Card, Сard__body, Сard__title} = classes
+const Card = ({ user }) => {
+    console.log(user);
+    const { Card, Card__image, Сard__body, Card__link } = classes
     return (
         <div className={Card}>
-            <img src={''} alt={''} className='card-img-top'/>
+            <div className={Card__image}>
+                <img src={user.avatar_url} alt='avatar' />
+            </div>
+
             <div className={Сard__body}>
-                <h5 className={Сard__title}>React JS</h5>
-                <Link to={'/:react'} className='btn btn-primary'>Open</Link>
+                <p>
+                    <GoMarkGithub />
+                    {user.login}
+                </p>
+                <div className={Card__link}>
+                    <a href={user.html_url} className='btn btn-primary'>Go To Github</a>
+                </div>
             </div>
         </div>
     )
 }
 
 export default Card
+
