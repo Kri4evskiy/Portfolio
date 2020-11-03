@@ -8,7 +8,7 @@ import classes from './Search.module.scss'
 const Search = () => {
     const {Search} = classes 
 
-    const {show} = useContext(AlertContext)
+    const alert = useContext(AlertContext)
     const github = useContext(GithubContext)
 
     const [value, setValue] = useState('')
@@ -17,10 +17,14 @@ const Search = () => {
         if (event.key !== 'Enter') {
             return
         }
+
+        github.clearUsers()
+
         if (value.trim()) {
+            alert.hide()
             github.search(value.trim())
         } else {
-            show('Введите данные пользователя!')
+            alert.show('Введите данные пользователя!')
         }
     }
 
