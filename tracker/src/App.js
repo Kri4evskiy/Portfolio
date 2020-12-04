@@ -1,11 +1,9 @@
 import { Tracker } from "./pages/Tracker";
 
-export function App() {
+export const App = () => {
   return (
-    <div>
+    <>
       <Tracker />
-    </div>
+    </>
   );
-}
-
-// export default App
+};
