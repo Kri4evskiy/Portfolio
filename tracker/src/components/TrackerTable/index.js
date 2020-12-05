@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) =>
       right: theme.spacing(1),
       height: "30px",
       width: "30px",
-      // backgroundColor: "rgba(79, 250, 176, 1)",
 
       "&:hover": {
         backgroundColor: "rgba(79, 250, 176, .3)",
