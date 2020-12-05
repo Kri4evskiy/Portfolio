@@ -7,7 +7,15 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import PauseCircleOutlineOutlinedIcon from "@material-ui/icons/PauseCircleOutlineOutlined";
+import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineOutlined";
 import { IconButton } from "@material-ui/core";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  deleteTracker,
+  playPauseToggle,
+} from "../../redux/actions/trackerActions";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -26,13 +34,13 @@ const useStyles = makeStyles((theme) =>
       width: "30px",
 
       "&:hover": {
-        backgroundColor: "rgba(79, 250, 176, .3)",
+        backgroundColor: "rgba(79, 250, 176, .1)",
       },
     },
     icon: {
       fontSize: "28px",
     },
-    pauseIcon: {
+    playPauseIcon: {
       color: "black",
     },
     removeIcon: {
@@ -45,61 +53,69 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function createData(name, calories) {
-  return { name, calories };
-}
-
-const rows = [
-  createData("No name tracker #1", "00:15:43"),
-  createData("No name tracker #2", "01:43:01"),
-  createData("No name tracker #3", "38:26:29"),
-];
-
 export const TrackerTable = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const buttonHandler = () => {
-    return console.log("Button click");
+  const { trackers } = useSelector(({ tracker }) => tracker);
+
+  const playPauseToggleHandler = (index) => {
+    dispatch(playPauseToggle(index));
+  };
+
+  const deleteHandler = (index) => {
+    dispatch(deleteTracker(index));
   };
 
   return (
     <TableContainer component={Paper} className={classes.root}>
       <Table className={classes.table} size="medium" aria-label="a dense table">
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
+          {trackers &&
+            trackers.map((tracker, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {tracker.title}
+                </TableCell>
 
-              <TableCell align="right" className={classes.tableCellButton}>
-                <IconButton
-                  onClick={buttonHandler}
-                  aria-label="continious"
-                  color="primary"
-                  className={`${classes.button}`}
-                >
-                  <PauseCircleOutlineOutlinedIcon
-                    className={`${classes.icon} ${classes.pauseIcon}`}
-                  />
-                </IconButton>
-              </TableCell>
+                <TableCell align="right">
+                  {tracker.h}:{tracker.m}:{tracker.s}
+                </TableCell>
 
-              <TableCell align="right" className={classes.tableCellButton}>
-                <IconButton
-                  onClick={buttonHandler}
-                  aria-label="delete"
-                  color="primary"
-                  className={`${classes.button}`}
-                >
-                  <RemoveCircleOutlineOutlinedIcon
-                    className={`${classes.icon} ${classes.removeIcon}`}
-                  />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
+                <TableCell align="right" className={classes.tableCellButton}>
+                  <IconButton
+                    onClick={() => playPauseToggleHandler(index)}
+                    aria-label="continious"
+                    color="primary"
+                    className={`${classes.button}`}
+                  >
+                    {trackers[index].isOn ? (
+                      <PauseCircleOutlineOutlinedIcon
+                        className={`${classes.icon} ${classes.playPauseIcon}`}
+                      />
+                    ) : (
+                      <PlayCircleOutlineOutlinedIcon
+                        className={`${classes.icon} ${classes.playPauseIcon}`}
+                      />
+                    )}
+                  </IconButton>
+                </TableCell>
+
+                <TableCell align="right" className={classes.tableCellButton}>
+                  <IconButton
+                    id={index}
+                    onClick={() => deleteHandler(index)}
+                    aria-label="delete"
+                    color="primary"
+                    className={`${classes.button}`}
+                  >
+                    <RemoveCircleOutlineOutlinedIcon
+                      className={`${classes.icon} ${classes.removeIcon}`}
+                    />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
