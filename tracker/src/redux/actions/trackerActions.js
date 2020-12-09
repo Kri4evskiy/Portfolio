@@ -1,23 +1,40 @@
-export const addTitleName = (text) => ({
-  type: "ADD_TITLE",
+export const onChangeTitle = (text) => ({
+  type: "ON_CHANGE_TITLE",
   payload: text,
 });
 
 export const clearInput = () => ({
   type: "CLEAR_INPUT",
 });
+export const increaseIdValue = () => ({
+  type: "INCREASE_ID",
+});
 
-export const addNewTracker = (text) => ({
+export const addNewTracker = (obj) => ({
   type: "ADD_NEW_TRACKER",
-  payload: text,
+  payload: obj,
 });
 
-export const deleteTracker = (index) => ({
-  type: "DELETE_TRACKER",
+export const removeTracker = (index) => ({
+  type: "REMOVE_TRACKER",
   payload: index,
 });
 
-export const playPauseToggle = (index) => ({
+export const playPauseToggle = (id) => ({
   type: "PLAY_PAUSE",
-  payload: index,
+  payload: id,
+});
+
+export const addIntervalToRefs = (interval, id) => ({
+  type: "ADD_INTERVAL_REF",
+  interval,
+  id,
+});
+export const intervalTicking = (obj) => ({
+  type: "INTERVAL_TICKING",
+  payload: obj,
+});
+export const clearIntervalRef = (id) => ({
+  type: "CLEAR_INTERVAL",
+  payload: id,
 });

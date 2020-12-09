@@ -1,9 +1,11 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addNewTracker,
   clearInput,
-  addTitleName,
+  onChangeTitle,
+  increaseIdValue,
+  intervalTicking,
+  addIntervalToRefs,
 } from "../../redux/actions/trackerActions";
 
 import TextField from "@material-ui/core/TextField";
@@ -12,6 +14,8 @@ import { IconButton } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 import moment from "moment";
+
+import { _createNewTrackerObject } from "../../redux/reducers/utils";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -49,35 +53,65 @@ const useStyles = makeStyles((theme) =>
 
 export const StartPanel = () => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
-  const title = useSelector(({ tracker }) => tracker.title);
 
-  const now = moment().format("[Time now] hh : mm : ss");
-  console.log(now);
+  const title = useSelector(({ tracker }) => tracker.title);
+  const id = useSelector(({ tracker }) => tracker.id);
 
   const startHandler = () => {
     const newTitle = title;
 
     if (newTitle !== "") {
-      dispatch(addNewTracker(newTitle));
+      dispatch(increaseIdValue());
+      const newTrackerObj = _createNewTrackerObject(id, newTitle);
+      const interval = setInterval(() => {
+        dispatch(intervalTicking(newTrackerObj));
+      }, 1000);
+      dispatch(addIntervalToRefs(interval, id));
+      dispatch(addNewTracker(newTrackerObj));
       dispatch(clearInput());
     } else {
-      dispatch(addNewTracker("Безымянный трекер"));
+      const now = moment().format("[Трекер] MMMM Do YYYY");
+      dispatch(increaseIdValue());
+      const newTrackerObj = _createNewTrackerObject(id, now);
+      const interval = setInterval(() => {
+        dispatch(intervalTicking(newTrackerObj));
+      }, 1000);
+      dispatch(addIntervalToRefs(interval, id));
+      dispatch(addNewTracker(newTrackerObj));
+      // dispatch(clearInput());
     }
   };
 
   const onChangeHandler = (event) => {
-    dispatch(addTitleName(event.target.value));
+    dispatch(onChangeTitle(event.target.value));
   };
 
   const keyDownHandler = (event) => {
     const newTitle = title;
     if (event.code === "Enter") {
       if (newTitle !== "") {
-        return dispatch(addNewTracker(newTitle));
+        // return dispatch(addNewTracker(newTitle));
+        dispatch(increaseIdValue());
+        const newTrackerObj = _createNewTrackerObject(id, newTitle);
+        const interval = setInterval(() => {
+          dispatch(intervalTicking(newTrackerObj));
+        }, 1000);
+        dispatch(addIntervalToRefs(interval, id));
+        dispatch(addNewTracker(newTrackerObj));
+        dispatch(clearInput());
+      } else {
+        const now = moment().format("[Трекер] MMMM Do YYYY");
+        dispatch(increaseIdValue());
+        const newTrackerObj = _createNewTrackerObject(id, now);
+        const interval = setInterval(() => {
+          dispatch(intervalTicking(newTrackerObj));
+        }, 1000);
+        dispatch(addIntervalToRefs(interval, id));
+        dispatch(addNewTracker(newTrackerObj));
       }
-      dispatch(addNewTracker("Безымянный трекер"));
+      // const now = moment().format("[Трекер] MMMM Do YYYY");
+      // dispatch(addNewTracker(now));
     }
   };
 

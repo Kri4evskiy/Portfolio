@@ -11,10 +11,14 @@ import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineO
 import { IconButton } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import {
-  deleteTracker,
+  removeTracker,
   playPauseToggle,
+  intervalTicking,
+  addIntervalToRefs,
+  clearIntervalRef,
 } from "../../redux/actions/trackerActions";
 
 const useStyles = makeStyles((theme) =>
@@ -59,12 +63,36 @@ export const TrackerTable = () => {
 
   const { trackers } = useSelector(({ tracker }) => tracker);
 
-  const playPauseToggleHandler = (index) => {
-    dispatch(playPauseToggle(index));
+  useEffect(() => {
+    trackers.forEach((tracker) => {
+      if (tracker.isOn) {
+        const interval = setInterval(() => {
+          dispatch(intervalTicking(tracker));
+        }, 1000);
+        dispatch(addIntervalToRefs(interval, tracker.id));
+      }
+    });
+  }, []);
+
+  const removeHandler = (index) => {
+    const id = trackers[index].id;
+    dispatch(removeTracker(id));
+    dispatch(clearIntervalRef(id));
   };
 
-  const deleteHandler = (index) => {
-    dispatch(deleteTracker(index));
+  const playPauseToggleHandler = (index) => {
+    const id = trackers[index].id;
+
+    if (!trackers[index].isOn) {
+      const interval = setInterval(() => {
+        dispatch(intervalTicking(trackers[index]));
+      }, 1000);
+      dispatch(addIntervalToRefs(interval, id));
+      dispatch(playPauseToggle(id));
+    } else {
+      dispatch(playPauseToggle(id));
+      dispatch(clearIntervalRef(id));
+    }
   };
 
   return (
@@ -104,7 +132,7 @@ export const TrackerTable = () => {
                 <TableCell align="right" className={classes.tableCellButton}>
                   <IconButton
                     id={index}
-                    onClick={() => deleteHandler(index)}
+                    onClick={() => removeHandler(index)}
                     aria-label="delete"
                     color="primary"
                     className={`${classes.button}`}
