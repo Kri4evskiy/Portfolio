@@ -26,12 +26,14 @@ const trackerReducer = (state = initialState, action) => {
         title: "",
       };
     }
+
     case "INCREASE_ID": {
       return {
         ...state,
         id: state.id + 1,
       };
     }
+
     case "ADD_NEW_TRACKER": {
       const trackers = [...state.trackers];
 
@@ -92,7 +94,11 @@ const trackerReducer = (state = initialState, action) => {
       const trackers = [...state.trackers].filter(
         (obj) => obj.id !== tracker.id
       );
-      trackers.unshift(newTracker);
+      const index = [...state.trackers].findIndex(
+        (obj) => obj.id === tracker.id
+      );
+
+      trackers.splice(index, 0, newTracker);
 
       return {
         ...state,
