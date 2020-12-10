@@ -11,7 +11,7 @@ import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineO
 import { IconButton } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   removeTracker,
@@ -20,6 +20,8 @@ import {
   addIntervalToRefs,
   clearIntervalRef,
 } from "../../redux/actions/trackerActions";
+
+import { useLocalStorage } from "react-use";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -62,6 +64,10 @@ export const TrackerTable = () => {
   const dispatch = useDispatch();
 
   const { trackers } = useSelector(({ tracker }) => tracker);
+  const [checkLocalStorage, setToLocalStorage] = useLocalStorage(
+    "my-key",
+    "foo"
+  );
 
   useEffect(() => {
     trackers.forEach((tracker) => {
@@ -72,8 +78,22 @@ export const TrackerTable = () => {
         dispatch(addIntervalToRefs(interval, tracker.id));
       }
     });
+    setToLocalStorage("123");
+
+    console.log(checkLocalStorage);
   }, []);
 
+  // function useLocalState(localItem) {
+  //   const [loc, setState] = useState(localStorage.getItem(localItem))
+  //   function setLoc(newItem) {
+  //     localStorage.setItem(newItem)
+  //   }
+
+  //   return [loc, setLoc]
+  // }
+
+  // const [value, setValue] = useLocalState('fruit')
+  // console.log(value, setValue);
   const removeHandler = (index) => {
     const id = trackers[index].id;
     dispatch(removeTracker(id));
