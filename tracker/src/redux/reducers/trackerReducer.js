@@ -112,11 +112,15 @@ const trackerReducer = (state = initialState, action) => {
       const interval = intervalRefs.filter(
         (obj) => obj.intID === action.payload
       );
-      clearInterval(interval[0].intRef);
+
+      if (intervalRefs.length) {
+        clearInterval(interval[0].intRef);
+      }
 
       const index = intervalRefs.findIndex(
         (el) => el.intID === interval[0].intID
       );
+
       intervalRefs.splice(index, 1);
 
       return {
