@@ -11,7 +11,9 @@ import PlayCircleOutlineOutlinedIcon from "@material-ui/icons/PlayCircleOutlineO
 import { IconButton } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { oneSecInterval } from "../functions";
 
 import {
   removeTracker,
@@ -72,28 +74,15 @@ export const TrackerTable = () => {
   useEffect(() => {
     trackers.forEach((tracker) => {
       if (tracker.isOn) {
-        const interval = setInterval(() => {
-          dispatch(intervalTicking(tracker));
-        }, 1000);
+        const interval = oneSecInterval(dispatch, intervalTicking, tracker);
         dispatch(addIntervalToRefs(interval, tracker.id));
       }
     });
-    setToLocalStorage("123");
+    // setToLocalStorage("123");
 
-    console.log(checkLocalStorage);
+    // console.log(checkLocalStorage);
   }, []);
 
-  // function useLocalState(localItem) {
-  //   const [loc, setState] = useState(localStorage.getItem(localItem))
-  //   function setLoc(newItem) {
-  //     localStorage.setItem(newItem)
-  //   }
-
-  //   return [loc, setLoc]
-  // }
-
-  // const [value, setValue] = useLocalState('fruit')
-  // console.log(value, setValue);
   const removeHandler = (index) => {
     const id = trackers[index].id;
     dispatch(removeTracker(id));
@@ -104,9 +93,12 @@ export const TrackerTable = () => {
     const id = trackers[index].id;
 
     if (!trackers[index].isOn) {
-      const interval = setInterval(() => {
-        dispatch(intervalTicking(trackers[index]));
-      }, 1000);
+      const interval = oneSecInterval(
+        dispatch,
+        intervalTicking,
+        trackers[index]
+      );
+
       dispatch(addIntervalToRefs(interval, id));
       dispatch(playPauseToggle(id));
     } else {

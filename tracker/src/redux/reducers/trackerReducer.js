@@ -44,37 +44,19 @@ const trackerReducer = (state = initialState, action) => {
     }
 
     case "REMOVE_TRACKER": {
-      const intervalRefs = [...state.intervalRefs];
-
       const trackers = [...state.trackers].filter(
         (track) => track.id !== action.payload
       );
-
-      const interval = intervalRefs.filter((obj) => {
-        return obj.intID === action.payload;
-      });
-
-      if (interval.length) {
-        clearInterval(interval[0].intRef);
-        const index = intervalRefs.findIndex(
-          (el) => el.intID === interval[0].intID
-        );
-        intervalRefs.splice(index, 1);
-      }
-
       return {
         ...state,
         trackers,
-        intervalRefs,
       };
     }
 
     case "PLAY_PAUSE": {
       const trackers = [...state.trackers];
 
-      const tracker = trackers.filter((track) => {
-        return track.id === action.payload;
-      });
+      const tracker = trackers.filter((track) => track.id === action.payload);
 
       tracker[0].isOn = !tracker[0].isOn;
 
@@ -121,9 +103,9 @@ const trackerReducer = (state = initialState, action) => {
     case "CLEAR_INTERVAL": {
       const intervalRefs = [...state.intervalRefs];
 
-      const interval = intervalRefs.filter((obj) => {
-        return obj.intID === action.payload;
-      });
+      const interval = intervalRefs.filter(
+        (obj) => obj.intID === action.payload
+      );
       clearInterval(interval[0].intRef);
 
       const index = intervalRefs.findIndex(

@@ -16,6 +16,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import moment from "moment";
 
 import { _createNewTrackerObject } from "../../redux/reducers/utils";
+import { oneSecInterval } from "../functions";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -64,9 +65,9 @@ export const StartPanel = () => {
     if (newTitle !== "") {
       dispatch(increaseIdValue());
       const newTrackerObj = _createNewTrackerObject(id, newTitle);
-      const interval = setInterval(() => {
-        dispatch(intervalTicking(newTrackerObj));
-      }, 1000);
+
+      const interval = oneSecInterval(dispatch, intervalTicking, newTrackerObj);
+
       dispatch(addIntervalToRefs(interval, id));
       dispatch(addNewTracker(newTrackerObj));
       dispatch(clearInput());
@@ -74,12 +75,11 @@ export const StartPanel = () => {
       const now = moment().format("[Трекер] MMMM Do YYYY");
       dispatch(increaseIdValue());
       const newTrackerObj = _createNewTrackerObject(id, now);
-      const interval = setInterval(() => {
-        dispatch(intervalTicking(newTrackerObj));
-      }, 1000);
+
+      const interval = oneSecInterval(dispatch, intervalTicking, newTrackerObj);
+
       dispatch(addIntervalToRefs(interval, id));
       dispatch(addNewTracker(newTrackerObj));
-      // dispatch(clearInput());
     }
   };
 
@@ -91,12 +91,15 @@ export const StartPanel = () => {
     const newTitle = title;
     if (event.code === "Enter") {
       if (newTitle !== "") {
-        // return dispatch(addNewTracker(newTitle));
         dispatch(increaseIdValue());
         const newTrackerObj = _createNewTrackerObject(id, newTitle);
-        const interval = setInterval(() => {
-          dispatch(intervalTicking(newTrackerObj));
-        }, 1000);
+
+        const interval = oneSecInterval(
+          dispatch,
+          intervalTicking,
+          newTrackerObj
+        );
+
         dispatch(addIntervalToRefs(interval, id));
         dispatch(addNewTracker(newTrackerObj));
         dispatch(clearInput());
@@ -104,14 +107,16 @@ export const StartPanel = () => {
         const now = moment().format("[Трекер] MMMM Do YYYY");
         dispatch(increaseIdValue());
         const newTrackerObj = _createNewTrackerObject(id, now);
-        const interval = setInterval(() => {
-          dispatch(intervalTicking(newTrackerObj));
-        }, 1000);
+
+        const interval = oneSecInterval(
+          dispatch,
+          intervalTicking,
+          newTrackerObj
+        );
+
         dispatch(addIntervalToRefs(interval, id));
         dispatch(addNewTracker(newTrackerObj));
       }
-      // const now = moment().format("[Трекер] MMMM Do YYYY");
-      // dispatch(addNewTracker(now));
     }
   };
 
