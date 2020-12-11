@@ -36,12 +36,8 @@ In the project directory, you can find:
 
 1. Add functionality with localStorage
 
-2. Fix small bugs in table
+2. Add highlights to active lines (CSS)
 
-3. Add highlights to active lines (CSS)
+3. Clean code with using DRY principles
 
-4. Clean code with using DRY principles
-
-5. Uninstall node-sass package
-
-6. Optimization (useCallback, WebPack)
+4. Optimization (useCallback, WebPack)

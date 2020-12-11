@@ -38,3 +38,6 @@ export const clearIntervalRef = (id) => ({
   type: "CLEAR_INTERVAL",
   payload: id,
 });
+export const checkLockalStorage = () => ({
+  type: "CHECK_LOCAL_STORAGE",
+});

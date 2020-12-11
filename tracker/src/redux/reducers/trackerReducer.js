@@ -129,6 +129,13 @@ const trackerReducer = (state = initialState, action) => {
       };
     }
 
+    // case "CHECK_LOCAL_STORAGE": {
+    //   localStorage.getItem('localTrackers')
+    //   return {
+    //     ...state
+    //   }
+    // }
+
     default:
       return state;
   }

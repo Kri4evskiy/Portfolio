@@ -24,6 +24,7 @@ import {
 } from "../../redux/actions/trackerActions";
 
 import { useLocalStorage } from "react-use";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -66,21 +67,24 @@ export const TrackerTable = () => {
   const dispatch = useDispatch();
 
   const { trackers } = useSelector(({ tracker }) => tracker);
-  const [checkLocalStorage, setToLocalStorage] = useLocalStorage(
-    "my-key",
-    "foo"
+  const [checkLocalStorage, setToLocalStorage, remove] = useLocalStorage(
+    "localTrackers"
   );
 
   useEffect(() => {
+    // if (!checkLocalStorage) {
+    //   setToLocalStorage(trackers)
+    // }
+    // const trackers = checkLocalStorage
+    const now = moment().unix();
+    const timeStamp = moment(now).valueOf();
+    console.log(timeStamp);
     trackers.forEach((tracker) => {
       if (tracker.isOn) {
         const interval = oneSecInterval(dispatch, intervalTicking, tracker);
         dispatch(addIntervalToRefs(interval, tracker.id));
       }
     });
-    // setToLocalStorage("123");
-
-    // console.log(checkLocalStorage);
   }, []);
 
   const removeHandler = (index) => {
