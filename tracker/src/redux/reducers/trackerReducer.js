@@ -113,28 +113,19 @@ const trackerReducer = (state = initialState, action) => {
         (obj) => obj.intID === action.payload
       );
 
-      if (intervalRefs.length) {
+      if (interval.length) {
         clearInterval(interval[0].intRef);
+        const index = intervalRefs.findIndex(
+          (el) => el.intID === interval[0].intID
+        );
+        intervalRefs.splice(index, 1);
       }
-
-      const index = intervalRefs.findIndex(
-        (el) => el.intID === interval[0].intID
-      );
-
-      intervalRefs.splice(index, 1);
 
       return {
         ...state,
         intervalRefs,
       };
     }
-
-    // case "CHECK_LOCAL_STORAGE": {
-    //   localStorage.getItem('localTrackers')
-    //   return {
-    //     ...state
-    //   }
-    // }
 
     default:
       return state;
